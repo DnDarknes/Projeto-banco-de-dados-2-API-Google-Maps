@@ -1,0 +1,26 @@
+{
+  "name": "projeto-banco-de-dados-2-api-google-maps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DnDarknes/Projeto-banco-de-dados-2-API-Google-Maps.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DnDarknes/Projeto-banco-de-dados-2-API-Google-Maps/issues"
+  },
+  "homepage": "https://github.com/DnDarknes/Projeto-banco-de-dados-2-API-Google-Maps#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "pg": "^8.7.3",
+    "sequelize": "^6.20.1"
+  }
+}
