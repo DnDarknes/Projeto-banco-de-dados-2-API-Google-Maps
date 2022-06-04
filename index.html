@@ -3,12 +3,33 @@
     <title>Simple Map</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/style.css" />
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <div id="map"></div>
+    <div class="container">
+      <form>
+          <button class="close" onclick="closeModal()">X</button>
+          <h2>Nova marcação</h2>
+          <div class="info">
 
+            <div class="titulo">
+                <label for="">Título:</label>
+                <input type="text" placeholder="Título da marcação">
+            </div>
+
+            <div class="descricao">
+                <label for="">Descrição:</label><br/>
+                <textarea class="desc" cols="30" rows="5" maxlength="200" placeholder="descrição da marcação:"></textarea>
+              </div>
+            </div>
+          
+          <div>
+              <button type="button" onclick="salvar()" class="salvo">Salvar</button>
+          </div>
+      </form>
+  </div>
+    <div id="map"></div>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly"
       defer
