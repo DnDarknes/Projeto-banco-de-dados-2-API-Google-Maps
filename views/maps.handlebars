@@ -50,7 +50,7 @@ function initMap() {
   })
 
   marker.addListener('click',()=>{
-    openWindowInfo();
+    openInfoMarker();
   })
 
   map.addListener("click", event =>{
@@ -58,6 +58,28 @@ function initMap() {
     openModal();
   })
 
+window.addEventListener('load', getPontos());
+
+
+  function getPontos(){
+    fetch('http://localhost:3000/searchMarker')
+    .then((res)=>{
+      return res.json()
+    }).then((response)=>{
+        let arrayMarcadores= []; 
+        for(let i=0;i<response.length;i++){
+              let positionMarker = new google.maps.LatLng(response[i].latitude, response[i].longuitude)
+              arrayMarcadores[i] = new google.maps.Marker({
+              position: positionMarker,
+              map,
+              titles: response.titulo,
+              draggable: true,
+              animation: google.maps.Animation.DROP
+            })
+        }
+        openInfoMarker(arrayMarcadores, response);
+    })
+}
   /*marker.addListener("dblclick", () => {
     info = new google.maps.InfoWindow({
       content: contentString
@@ -120,8 +142,26 @@ function salvarMarker(event){
     inputDescricao.value ='';  
 
     closeModal();
+    location.reload();
 }
 
+
+function openInfoMarker(arrayPontos, response){
+  for(let i = 0;i<arrayPontos.length;i++){
+    arrayPontos[i].addListener('click', ()=>{
+      const contentString = `<div id="content">
+                                <h3>Nome:</h3>
+                                <p>${response[i].titulo}</p>
+                                <h3>Descrição:</h3>
+                                <p>${response[i].descricao}</p>
+                              </div>`;
+      const infowindow = new google.maps.InfoWindow({
+          content: contentString,
+        });
+        infowindow.open(map, arrayPontos[i])
+    })
+  }
+}
 
 
 </script>

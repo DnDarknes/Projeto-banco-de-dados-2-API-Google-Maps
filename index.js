@@ -3,10 +3,13 @@ const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
 const app = express();
 const db = require('./models/db');
+const { createTable } = require('./models/db');
 
 
 // Create table in DataBase
-    db.createTable();
+    (async()=>{
+        await createTable();
+    })()
 
 // Config
 
@@ -22,7 +25,7 @@ const db = require('./models/db');
         res.render('maps.handlebars');
     })
 
-    //app.get('/searchMarker', db.searchMarker);
+    app.get('/searchMarker', db.searchMarker);
 
     app.post('/addMarker', db.saveMarker);
 

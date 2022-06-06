@@ -37,11 +37,16 @@ require('dotenv').config();
             res.status(200).send('inserido');
           }
 
-
+        async function searchMarker(req, res){
+            const marker = require('./marker');
+            const marcadores = await marker.findAll();
+            res.status(200).send(marcadores);
+        }
     
 
 module.exports = {
     sequelize: sequelize,
     saveMarker: saveMarker,
-    createTable: createTable
+    createTable: createTable,
+    searchMarker: searchMarker
 }
