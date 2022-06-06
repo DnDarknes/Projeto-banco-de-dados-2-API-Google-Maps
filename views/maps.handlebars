@@ -1,0 +1,129 @@
+  <div class="container">
+      <form>
+          <button class="close" onclick="closeModal()">X</button>
+          <h2>Nova marcação</h2>
+          <div class="info">
+              <div class="titulo">
+                <label for="">Título:</label>
+                <input type="text" id="inputTitulo" placeholder="Título da marcação">
+              </div>
+
+              <div class="descricao">
+                <label for="">Descrição:</label><br/>
+                <textarea id="inputDescricao" cols="30" rows="5" maxlength="200" placeholder="descrição da marcação:"></textarea>
+              </div>
+          </div>
+          
+          <div>
+              <button type="button" onclick="salvarMarker()" class="salvo">Salvar</button>
+          </div>
+      </form>
+   </div>
+<div id="map"></div>
+
+
+<script>
+    
+let map;
+let centerMarker;
+let newMarker;
+let saveMarker;
+let marker;
+let info;
+
+const center = { lat: -6.890857388776942, lng: -38.5643308557302 }
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: center,
+    zoom: 16,
+    zoomcontrol: false,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  marker = new google.maps.Marker({
+    position: center,
+    map,
+    titles: "Hello world",
+    draggable: true,
+    animation: google.maps.Animation.DROP
+  })
+
+  marker.addListener('click',()=>{
+    openWindowInfo();
+  })
+
+  map.addListener("click", event =>{
+    mudarMarker(event);
+    openModal();
+  })
+
+  marker.addListener("dblclick", () => {
+    info = new google.maps.InfoWindow({
+      content: openModal()
+    }).open({
+      anchor: marker,
+      map,
+      shouldFocus: false
+    })
+  })
+}
+
+window.initMap = initMap;
+
+//window.addEventListener('load',()=>{
+  //getPontos()
+//})
+
+//function getPontos(
+  
+//)
+
+function openModal(){
+  let div = document.querySelector('.container')
+    div.classList.add('mostrar')
+}
+
+function closeModal(){
+  let textarea = document.querySelector('textarea')
+    textarea.value = ''
+  let modal = document.querySelector('.container')
+      modal.classList.remove('mostrar')
+}
+
+function mudarMarker(event){
+  marker.setPosition(event.latLng)
+}
+
+
+function salvarMarker(event){
+    let inputTitulo = document.querySelector('#inputTitulo');
+    let inputDescricao = document.querySelector('#inputDescricao');
+    let obj = {
+        titulo: inputTitulo.value,
+        descricao: inputDescricao.value,
+        lat: marker.getPosition().lat(),
+        lng: marker.getPosition().lng()
+    }
+
+    fetch('http://localhost:3000/addMarker', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj)
+    }).then((response)=>{
+        window.alert('Marcador Inserido!');
+    }).catch((error)=>{
+        window.alert(`Ocorreu um erro! Error:${error}`);
+    })
+
+    inputTitulo.value = '';
+    inputDescricao.value ='';  
+
+    closeModal();
+}
+
+</script>
+
