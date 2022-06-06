@@ -58,26 +58,23 @@ function initMap() {
     openModal();
   })
 
-  marker.addListener("dblclick", () => {
+  /*marker.addListener("dblclick", () => {
     info = new google.maps.InfoWindow({
-      content: openModal()
+      content: contentString
     }).open({
       anchor: marker,
       map,
       shouldFocus: false
     })
-  })
+  })*/
 }
 
 window.initMap = initMap;
 
-//window.addEventListener('load',()=>{
-  //getPontos()
-//})
+window.addEventListener('load',()=>{
+  getPontos()
+})
 
-//function getPontos(
-  
-//)
 
 function openModal(){
   let div = document.querySelector('.container')
@@ -124,6 +121,8 @@ function salvarMarker(event){
 
     closeModal();
 }
+
+
 
 </script>
 
