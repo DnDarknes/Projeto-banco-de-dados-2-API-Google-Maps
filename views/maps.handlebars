@@ -38,7 +38,7 @@ function initMap() {
     center: center,
     zoom: 16,
     zoomcontrol: false,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.HYBRID
   });
 
   marker = new google.maps.Marker({
@@ -80,15 +80,6 @@ window.addEventListener('load', getPontos());
         openInfoMarker(arrayMarcadores, response);
     })
 }
-  /*marker.addListener("dblclick", () => {
-    info = new google.maps.InfoWindow({
-      content: contentString
-    }).open({
-      anchor: marker,
-      map,
-      shouldFocus: false
-    })
-  })*/
 }
 
 window.initMap = initMap;
